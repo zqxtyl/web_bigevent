@@ -12,6 +12,16 @@ function getUserInfo() {
 
       renderAvatar(res.data);
     },
+
+    complete: (res) => {
+      if (
+        res.responseJSON.status == 1 &&
+        res.res.responseJSON.message === '身份认证失败'
+      ) {
+        localStorage.removeItem('token');
+        localStorage.href = '/login.html';
+      }
+    },
   });
 }
 
@@ -29,11 +39,11 @@ const renderAvatar = (user) => {
   }
 };
 
-$('#btnLogout').click(()=>{
-    layer.confirm('是否退出登录？',{icon:3,title:'提示'},function(index){
-        localStorage.removeItem('token')
-        location.href='/login.html'
-    })
-})
+$('#btnLogout').click(() => {
+  layer.confirm('是否退出登录？', { icon: 3, title: '提示' }, function (index) {
+    localStorage.removeItem('token');
+    location.href = '/login.html';
+  });
+});
 
 getUserInfo();
