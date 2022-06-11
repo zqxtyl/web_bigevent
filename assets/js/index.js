@@ -7,9 +7,8 @@ function getUserInfo() {
     // },
     success: (res) => {
       //   console.log(res);
-      if (res.status !== 0) return layer.msg(res.message);
-      layer.msg('获取用户信息成功');
-
+      if (res.status !== 0) return layer.msg('获取用户信息失败！');
+      layer.msg('获取用户信息成功！');
       renderAvatar(res.data);
     },
   });
@@ -20,7 +19,7 @@ const renderAvatar = (user) => {
   $('#welcome').html(`欢迎${name}`);
 
   if (user.user_pic !== null) {
-    $('.layui-nav-img').attr('scr', user.user_pic).show();
+    $('.layui-nav-img').attr('src', user.user_pic).show();
     $('.text-avatar').hide();
   } else {
     $('.layui-nav-img').hide();
@@ -29,11 +28,11 @@ const renderAvatar = (user) => {
   }
 };
 
-$('#btnLogout').click(()=>{
-    layer.confirm('是否退出登录？',{icon:3,title:'提示'},function(index){
-        localStorage.removeItem('token')
-        location.href='/login.html'
-    })
-})
+$('#btnLogout').click(() => {
+  layer.confirm('是否退出登录？', { icon: 3, title: '提示' }, function (index) {
+    localStorage.removeItem('token');
+    location.href = '/login.html';
+  });
+});
 
 getUserInfo();
